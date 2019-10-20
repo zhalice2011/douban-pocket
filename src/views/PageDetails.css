@@ -1,0 +1,24 @@
+.page-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.list-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.detail-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    z-index: 2;
+}
+
+.detail-header-img {
+    width: 50%;
+}

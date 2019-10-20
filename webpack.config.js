@@ -5,7 +5,8 @@ module.exports = {
     entry: './src/index.jsx',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, './dist')
+        path: path.resolve(__dirname, './dist'),
+        publicPath:'/',
     },
     resolve: {
             extensions: ['.jsx', '.js'],
@@ -34,5 +35,8 @@ module.exports = {
             // 打包后文件名称，会自动放到 output 指定的 dist 目录
             filename: 'index.html'
         })
-    ]
+    ],
+    devServer:{
+        historyApiFallback: true
+    },
 }

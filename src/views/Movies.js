@@ -38,5 +38,4 @@ class Movies extends Component {
     }
 }
 
-// module.exports = Movies;
 export default (props)=><Movies {...props} key={props.location.pathname} />

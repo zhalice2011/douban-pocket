@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Tabs from '../components/common/Tabs'
 import ListView from '../components/common/ListView'
 import SearchBox from '../components/common/SearchBox'
-import fetchJSON from '../utils/fetch'
+import Loading from '../components/common/Loading'
+import PageDetails from './PageDetails'
 
+import fetchJSON from '../utils/fetch'
 import TAB from '../constants/tab'
 
 class Page extends Component {
@@ -22,7 +24,9 @@ class Page extends Component {
         }
         this.active = active
         this.state = {
-            items: []
+            isLoading: false, 
+            items: [],
+            item: null,
         }
     }
     componentDidMount () {
@@ -31,21 +35,39 @@ class Page extends Component {
     onChange = (search) => {
         this.fetchData(search)
     }
+    handleClick = (item) => {
+        this.setState({ item })
+    }
+    handleClickBack = () => {
+        this.setState({ item: null })
+    }
     fetchData (search) {
+        this.setState({ isLoading: true })
         const params = {}
         fetchJSON(this.active, search, params).then(data => {
             const items = data.result
-            this.setState({ items })
+            this.setState({ items, isLoading: false })
         })
     }
     render() {
-        const { items } = this.state
+        const { items, isLoading, item } = this.state
         return (
-	        <div className="column-flex" style={{ height: '100%' }}>
-                <SearchBox onChange={this.onChange} />
-                <ListView items={items}/>
-                <Tabs history={this.props.history} active={this.active}/>
+            <div className="page-container">
+                <div className="column-flex list-container" style={{ height: '100%' }}>
+                    <SearchBox onChange={this.onChange} />
+                    {isLoading && <div className="row-flex-center flex1"><Loading /></div>}
+                    {!isLoading && items && items.length === 0 && <div className='row-flex-center flex1' style={{ textAlign: 'center' }}>暂无数据</div>}
+                    {!isLoading && items && items.length > 0 && <ListView items={items} handleClick={this.handleClick}/> }
+                    <Tabs history={this.props.history} active={this.active}/>
+                </div>
+                {
+                    item && 
+                        <div className="detail-container">
+                            <PageDetails item={item} onBack={this.handleClickBack}/>
+                        </div>
+                } 
             </div>
+	        
         );
     }
 }
