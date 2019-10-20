@@ -15,6 +15,10 @@ h1 {
 .row-flex {
     display: flex;
 }
+.row-flex-center {
+    display: flex;
+    align-items: center;
+}
 .column-flex {
     display: flex;
     flex-direction: column;
