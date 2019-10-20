@@ -1,0 +1,18 @@
+.search-container {
+    height: 50px;
+    justify-content: space-between;
+    padding: 10px;
+}
+.search-input {
+    flex: 1;
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 10px 15px;
+}
+.search-btn {
+    line-height: 50px;
+    background: #499;
+    color: white;
+    width: 50px;
+    text-align: center;
+}

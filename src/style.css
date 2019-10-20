@@ -7,3 +7,24 @@ h1 {
     text-align: center;
     margin-top: 200px;
 }
+
+.app {
+    height: 100vh;
+}
+
+.row-flex {
+    display: flex;
+}
+.column-flex {
+    display: flex;
+    flex-direction: column;
+}
+.flex1 {
+    flex: 1;
+}
+.align-center {
+    text-align: center;
+}
+.bd {
+    border: 1px solid #999;
+}
