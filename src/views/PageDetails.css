@@ -1,0 +1,29 @@
+.detail-container {
+    position: absolute;
+    background: #fff;
+    z-index: 2;
+}
+
+.detail-header {
+    background: blanchedalmond;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+}
+.detail-header-back {
+    position: absolute;
+    left: 10px;
+    top: 0px;
+}
+
+.detail-banner {
+    padding: 10px;
+    display: flex;
+    border-bottom: 1px solid #eee;
+}
+.detail-banner img {
+    width: 50%;
+    margin-right: 5px;
+}

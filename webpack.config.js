@@ -34,5 +34,8 @@ module.exports = {
             // 打包后文件名称，会自动放到 output 指定的 dist 目录
             filename: 'index.html'
         })
-    ]
+    ],
+    devServer: {
+       historyApiFallback: true, 
+    }
 }
