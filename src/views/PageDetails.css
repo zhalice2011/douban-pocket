@@ -1,4 +1,6 @@
 .detail-container {
+    height: 100%;
+    width: 100%;
     position: absolute;
     background: #fff;
     z-index: 2;
