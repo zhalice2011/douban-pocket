@@ -5,11 +5,22 @@ import './ListView.css'
 class ListView extends Component {
     static propTypes = {
         items: PropTypes.array,
-        handleClick: PropTypes.func
+        handleClick: PropTypes.func,
+        fetchMoreData: PropTypes.func,
     }
     static defaultProps = {
         items: [],
     }
+    
+    listRef = React.createRef()
+
+    handleScroll = () => {
+        const { scrollTop, scrollHeight, clientHeight } = this.listRef.current
+        if (scrollTop + clientHeight > scrollHeight - 1) {
+            this.props.fetchMoreData && this.props.fetchMoreData()
+        }
+    }
+
     renderItem (item) {
         const onClick = () => this.props.handleClick(item)
         return (
@@ -29,6 +40,8 @@ class ListView extends Component {
             <div
                 className="column-flex flex1"
                 style={{ padding: '10px', overflow: 'auto' }}
+                onScroll={this.handleScroll}
+                ref={this.listRef}
             >
                 {items.map(item => this.renderItem(item))}
             </div>
