@@ -28,12 +28,14 @@ class Page extends Component {
             isLoading: false, 
             items: [],
             item: null,
+            page: 1,
         }
     }
     componentDidMount () {
         this.fetchData()
     }
     onChange = (search) => {
+        this.search = search
         this.fetchData(search)
     }
     handleClick = (item) => {
@@ -43,11 +45,22 @@ class Page extends Component {
         this.setState({ item: null })
     }
     fetchData (search) {
-        this.setState({ isLoading: true })
-        const params = {}
+        if (!this.state.items) {
+            this.setState({ isLoading: true })
+        }
+        const params = { page: this.state.page }
         fetchJSON(this.active, search, params).then(data => {
             const items = data.result
             this.setState({ items, isLoading: false })
+        })
+    }
+    fetchMoreData = () => {
+        this.setState({ page: this.state.page + 1 }, () => {
+            fetchJSON(this.active, this.search, { page: this.state.page }).then(data => {
+                const items = this.state.items.concat(data.result)
+                this.setState({ items, isLoading: false })
+            })
+
         })
     }
     render() {
@@ -64,7 +77,9 @@ class Page extends Component {
                     {!isLoading && items && items.length === 0 && 
                         <div className="flex1 row-flex-center jc-center "><span>暂无数据</span></div>
                     }
-                    {!isLoading && items && items.length > 0 && <ListView items={items} handleClick={this.handleClick}/>}
+                    {!isLoading && items && items.length > 0 && 
+                        <ListView items={items} handleClick={this.handleClick} fetchMoreData={this.fetchMoreData}/>
+                    }
                     <Tabs history={this.props.history} active={this.active}/>
                 </div>
                 {item && <PageDetails item={item} goBack={this.handleGoBack} />}
